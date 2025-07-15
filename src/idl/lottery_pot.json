@@ -1,0 +1,333 @@
+{
+    "address": "2g2gLFwXCdbYeZotkH6MxnFnccJVN5ChHHZLk9enNLzi",
+    "metadata": {
+        "name": "lottery_pot",
+        "version": "0.1.0",
+        "spec": "0.1.0",
+        "description": "Created with Anchor"
+    },
+    "instructions": [
+        {
+            "name": "buy_ticket",
+            "discriminator": [
+                11,
+                24,
+                17,
+                193,
+                168,
+                116,
+                164,
+                169
+            ],
+            "accounts": [
+                {
+                    "name": "lottery_pot",
+                    "writable": true
+                },
+                {
+                    "name": "buyer",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "buyer_token_account",
+                    "writable": true
+                },
+                {
+                    "name": "vault",
+                    "writable": true
+                },
+                {
+                    "name": "token_program",
+                    "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+                }
+            ],
+            "args": []
+        },
+        {
+            "name": "create_pot",
+            "discriminator": [
+                232,
+                45,
+                123,
+                181,
+                204,
+                121,
+                131,
+                9
+            ],
+            "accounts": [
+                {
+                    "name": "lottery_pot",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "backend_authority",
+                    "writable": true,
+                    "signer": true
+                },
+                {
+                    "name": "vault",
+                    "writable": true
+                },
+                {
+                    "name": "developer_wallet",
+                    "writable": true
+                },
+                {
+                    "name": "mint"
+                },
+                {
+                    "name": "token_program",
+                    "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+                },
+                {
+                    "name": "system_program",
+                    "address": "11111111111111111111111111111111"
+                },
+                {
+                    "name": "rent",
+                    "address": "SysvarRent111111111111111111111111111111111"
+                }
+            ],
+            "args": [
+                {
+                    "name": "ticket_price",
+                    "type": "u64"
+                },
+                {
+                    "name": "ticket_capacity",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "fulfill_and_payout",
+            "discriminator": [
+                155,
+                254,
+                174,
+                77,
+                79,
+                156,
+                75,
+                60
+            ],
+            "accounts": [
+                {
+                    "name": "lottery_pot",
+                    "writable": true
+                },
+                {
+                    "name": "authority",
+                    "signer": true,
+                    "relations": [
+                        "lottery_pot"
+                    ]
+                },
+                {
+                    "name": "vault",
+                    "writable": true
+                },
+                {
+                    "name": "mint",
+                    "writable": true
+                },
+                {
+                    "name": "winner_token_account",
+                    "writable": true
+                },
+                {
+                    "name": "token_program",
+                    "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+                }
+            ],
+            "args": [
+                {
+                    "name": "_randomness",
+                    "type": "u128"
+                },
+                {
+                    "name": "_winner_pubkey",
+                    "type": "pubkey"
+                }
+            ]
+        }
+    ],
+    "accounts": [
+        {
+            "name": "LotteryPot",
+            "discriminator": [
+                202,
+                76,
+                191,
+                43,
+                247,
+                35,
+                197,
+                249
+            ]
+        }
+    ],
+    "events": [
+        {
+            "name": "PayoutFulfilled",
+            "discriminator": [
+                64,
+                123,
+                90,
+                78,
+                177,
+                118,
+                225,
+                232
+            ]
+        },
+        {
+            "name": "PotCreated",
+            "discriminator": [
+                123,
+                24,
+                71,
+                133,
+                138,
+                137,
+                140,
+                204
+            ]
+        },
+        {
+            "name": "TicketBought",
+            "discriminator": [
+                80,
+                244,
+                35,
+                181,
+                211,
+                143,
+                3,
+                166
+            ]
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "PotNotFull",
+            "msg": "Lottery pot is not full yet"
+        },
+        {
+            "code": 6001,
+            "name": "PotFull",
+            "msg": "Lottery pot is already full"
+        },
+        {
+            "code": 6002,
+            "name": "InvalidDeveloperWallet",
+            "msg": "Invalid developer wallet"
+        }
+    ],
+    "types": [
+        {
+            "name": "LotteryPot",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "authority",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "ticket_price",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "ticket_capacity",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "tickets_sold",
+                        "type": "u64"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "PayoutFulfilled",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "winner",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "pot",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "amount",
+                        "type": "u64"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "PotCreated",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "pot",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "authority",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "ticket_price",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "ticket_capacity",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "mint",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "vault",
+                        "type": "pubkey"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "TicketBought",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "buyer",
+                        "type": "pubkey"
+                    },
+                    {
+                        "name": "tickets_sold",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "ticket_capacity",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "pot",
+                        "type": "pubkey"
+                    }
+                ]
+            }
+        }
+    ]
+}
