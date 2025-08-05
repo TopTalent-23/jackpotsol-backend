@@ -3,7 +3,7 @@ services:
     name: bundler-bot-backend
     env: node
     branch: main
-    buildCommand: npm run build
+    buildCommand: npm install && npm run build
     startCommand: npm start
     plan: free
     region: oregon
