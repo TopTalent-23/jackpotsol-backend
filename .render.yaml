@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: bundler-bot-backend
+    env: node
+    branch: main
+    buildCommand: npm run build
+    startCommand: npm start
+    plan: free
+    region: oregon
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: BACKEND_AUTH
+        sync: false
