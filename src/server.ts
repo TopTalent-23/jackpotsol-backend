@@ -7,6 +7,7 @@ import { Server as SocketIOServer } from "socket.io";
 import { Pot, Ticket, Payout } from "./models"; // ensure correct path
 import { startListener } from "./listener";
 import { Transaction } from "@solana/web3.js";
+import authRoutes from './routes/auth';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ const io = new SocketIOServer(server, {
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/auth', authRoutes);
 
 // === SOCKET CONNECTION ===
 io.on("connection", (socket) => {
