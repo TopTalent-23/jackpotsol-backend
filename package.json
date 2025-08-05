@@ -2,7 +2,7 @@
   "name": "lottery_backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "dist/server.js",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc",
