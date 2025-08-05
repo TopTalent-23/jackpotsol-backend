@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
     "build": "npm run clean && tsc",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn src/server.ts"
