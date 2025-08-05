@@ -172,7 +172,8 @@ db.once("open", () => {
 // === START SERVER ===
 server.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
-    mongoose.connect(MONGO_URL)
+    const uri = (process.env.MONGODB_URI || "").replace(/^"(.*)"$/, '$1');
+    mongoose.connect(uri)
         .then(() => {
             startListener().catch(console.error);
         })
